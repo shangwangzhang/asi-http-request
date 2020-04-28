@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SampleViewController.h"
+#import <WebKit/WebKit.h>
 
 @class ASIWebPageRequest;
 
-@interface WebPageViewController : SampleViewController <UIWebViewDelegate> {
-	UIWebView *webView;
+@interface WebPageViewController : SampleViewController <WKNavigationDelegate> {
+	WKWebView *webView;
 	UITextField *urlField;
 	UITextView *responseField;
 	UISwitch *replaceURLsSwitch;

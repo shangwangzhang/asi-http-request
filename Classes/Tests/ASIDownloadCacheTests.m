@@ -532,7 +532,7 @@
 
 - (void)testCachedFileOverwritten
 {
-	// Test for https://github.com/pokeb/asi-http-request/pull/211
+	// Test for https://github.com/shangwangzhang/asi-http-request/pull/211
 	// This test ensures that items in the cache are correctly overwritten when a downloadDestinationPath is set,
 	// and they need to be copied to the cache at the end of the request
 

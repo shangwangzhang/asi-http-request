@@ -6,6 +6,7 @@
 //  Copyright 2010 All-Seeing Interactive. All rights reserved.
 //
 
+#import <WebKit/WebKit.h>
 #import "BlocksTests.h"
 #import "ASIHTTPRequest.h"
 
@@ -22,7 +23,7 @@
 - (void)testBlockMainThreadSafety
 {
 	NSURL *url = [NSURL URLWithString:@"http://allseeing-i.com"];
-	UIWebView *webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,0,200,200)] autorelease];
+	WKWebView *webView = [[[WKWebView alloc] initWithFrame:CGRectMake(0,0,200,200)] autorelease];
 	__block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 	[request setCompletionBlock:^ {[webView loadHTMLString:[request responseString] baseURL:url]; }];
 	[request startAsynchronous];

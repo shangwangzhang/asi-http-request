@@ -1851,7 +1851,7 @@
 
 - (void)testNilPortCredentialsMatching
 {
-	// Test for http://github.com/pokeb/asi-http-request/issues#issue/39
+	// Test for http://github.com/shangwangzhang/asi-http-request/issues#issue/39
 	[ASIHTTPRequest clearSession];
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com:80/ASIHTTPRequest/tests/basic-authentication"]];
 	[request setUsername:@"secret_username"];

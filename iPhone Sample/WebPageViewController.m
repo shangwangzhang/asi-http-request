@@ -89,13 +89,15 @@
 }
 
 // We'll take over the page load when the user clicks on a link
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)theRequest navigationType:(UIWebViewNavigationType)navigationType
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-	if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-		[self fetchURL:[theRequest URL]];
-		return NO;
-	}
-	return YES;
+    if ( navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        [self fetchURL:navigationAction.request.URL];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+    
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 
@@ -143,7 +145,8 @@
 	[request setDownloadProgressDelegate:nil];
 	[request cancel];
 	[request release];
-	[webView setDelegate:nil];
+//	[webView setDelegate:nil];
+    webView.navigationDelegate = nil;
 	[webView release];
 	[responseField release];
 	[urlField release];
@@ -155,8 +158,8 @@
 {
 	[super viewDidLoad];
 	[[[self navigationBar] topItem] setTitle:@"Downloading a Web Page"];
-	webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-	[webView setDelegate:self];
+	webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+	webView.navigationDelegate = self;
 	responseField = [[UITextView alloc] initWithFrame:CGRectZero];
 	[responseField setBackgroundColor:[UIColor clearColor]];
 	[responseField setEditable:NO];
